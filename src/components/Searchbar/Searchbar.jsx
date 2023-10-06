@@ -1,18 +1,16 @@
-import { useState } from 'react';
+import { submitQuery } from 'constants/actions';
 import { Button, Input, SearchbarStyled, SearchForm } from './Searchbar.styled';
+import { useDispatch } from 'react-redux';
 
-const Searchbar = ({ onSubmit }) => {
-  const [input, setInput] = useState('');
-
-  const onInputChange = e => {
-    setInput(e.target.value);
-  };
+const Searchbar = () => {
+  const dispatch = useDispatch();
 
   const onFormSubmit = e => {
     e.preventDefault();
+    const input = e.currentTarget.elements.queryInput.value;
     if (input.trim() === '')
       return alert('Please enter the some text in input');
-    onSubmit(input.trim().toLowerCase());
+    dispatch(submitQuery(input.trim().toLowerCase()));
   };
 
   return (
@@ -23,10 +21,9 @@ const Searchbar = ({ onSubmit }) => {
         </Button>
 
         <Input
-          onChange={onInputChange}
           className="input"
-          value={input}
           type="text"
+          name="queryInput"
           autoComplete="off"
           autoFocus
           placeholder="Search images and photos"

@@ -1,0 +1,1 @@
+export const SUMBIT_QUERY = "query/submitQuery"
